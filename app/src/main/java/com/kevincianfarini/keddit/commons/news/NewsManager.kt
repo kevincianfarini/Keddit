@@ -23,7 +23,7 @@ class NewsManager(private val api: RestApi = RestApi()) {
                     RedditNewsItem(
                             item.author,
                             item.title,
-                            item.numComments,
+                            item.num_comments,
                             item.created,
                             item.thumbnail,
                             item.url
