@@ -2,11 +2,12 @@ package com.kevincianfarini.keddit.commons.news
 
 import com.kevincianfarini.keddit.commons.RedditNews
 import com.kevincianfarini.keddit.commons.RedditNewsItem
-import com.kevincianfarini.keddit.commons.api.RestApi
+import com.kevincianfarini.keddit.commons.api.NewsAPI
+import com.kevincianfarini.keddit.commons.api.NewsRestApi
 import rx.Observable
 
 
-class NewsManager(private val api: RestApi = RestApi()) {
+class NewsManager(private val api: NewsAPI = NewsRestApi()) {
 
     fun getNews(after: String = "", limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
