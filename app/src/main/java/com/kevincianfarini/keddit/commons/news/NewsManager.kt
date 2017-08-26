@@ -5,9 +5,11 @@ import com.kevincianfarini.keddit.commons.RedditNewsItem
 import com.kevincianfarini.keddit.commons.api.NewsAPI
 import com.kevincianfarini.keddit.commons.api.NewsRestApi
 import rx.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class NewsManager(private val api: NewsAPI = NewsRestApi()) {
+@Singleton
+class NewsManager @Inject constructor(private val api: NewsAPI) {
 
     fun getNews(after: String = "", limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
