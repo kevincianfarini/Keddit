@@ -20,6 +20,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     init {
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
         delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.TEXT_NEWS, NewsTextDelegateAdapter())
         items = ArrayList()
         items.add(loadingItem)
     }
@@ -44,17 +45,19 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun getNews(): List<RedditNewsItem> {
         return items
-                .filter { it.getViewType() == AdapterConstants.NEWS }
+                .filter { it.getViewType() == AdapterConstants.NEWS || it.getViewType() == AdapterConstants.TEXT_NEWS }
                 .map { it as RedditNewsItem }
     }
 
     private fun getLastPosition() = if (items.lastIndex == -1) 0 else items.lastIndex
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items.get(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
+            delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items.get(position))
 
     override fun getItemCount(): Int = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = delegateAdapters.get(viewType).onCreateViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            delegateAdapters.get(viewType).onCreateViewHolder(parent)
 
     override fun getItemViewType(position: Int): Int = items[position].getViewType()
 }

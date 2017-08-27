@@ -10,7 +10,7 @@ class RedditDataResponse(
 
 class RedditChildResponse(val data: RedditNewsDataResponse)
 
-class RedditNewsDataResponse(
+data class RedditNewsDataResponse(
         val author: String,
         val title: String,
         val num_comments: Int,

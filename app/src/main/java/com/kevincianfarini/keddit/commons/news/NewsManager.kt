@@ -1,5 +1,6 @@
 package com.kevincianfarini.keddit.commons.news
 
+import android.util.Log
 import com.kevincianfarini.keddit.commons.RedditNews
 import com.kevincianfarini.keddit.commons.RedditNewsItem
 import com.kevincianfarini.keddit.commons.api.NewsAPI

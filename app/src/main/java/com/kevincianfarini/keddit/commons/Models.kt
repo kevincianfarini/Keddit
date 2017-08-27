@@ -38,7 +38,8 @@ data class RedditNewsItem(
         val thumbnail: String,
         val url: String
 ) : ViewType, Parcelable {
-    override fun getViewType(): Int = AdapterConstants.NEWS
+    override fun getViewType(): Int =
+            if (thumbnail == "self") AdapterConstants.TEXT_NEWS else AdapterConstants.NEWS
 
     companion object {
         @JvmField @Suppress("unused")

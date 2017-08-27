@@ -32,9 +32,8 @@ class NewsFragment : RxBaseFragment() {
 
     @Inject lateinit var newsManager: NewsManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return container?.inflate(R.layout.news_fragment)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            container?.inflate(R.layout.news_fragment)
 
     private fun requestNews() {
         val subscription = newsManager.getNews(redditNews?.after ?: "")
@@ -80,7 +79,7 @@ class NewsFragment : RxBaseFragment() {
         super.onSaveInstanceState(outState)
         val news = (newsList.adapter as NewsAdapter).getNews()
         if (redditNews != null && news.isNotEmpty()) {
-            outState.putParcelable(KEY_REDDIT_NEWS, redditNews?.copy(news=news))
+            outState.putParcelable(KEY_REDDIT_NEWS, redditNews?.copy(news = news))
         }
     }
 
