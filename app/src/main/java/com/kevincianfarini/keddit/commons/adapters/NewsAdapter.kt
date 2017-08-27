@@ -52,7 +52,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private fun getLastPosition() = if (items.lastIndex == -1) 0 else items.lastIndex
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-            delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items.get(position))
+            delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
 
     override fun getItemCount(): Int = items.size
 

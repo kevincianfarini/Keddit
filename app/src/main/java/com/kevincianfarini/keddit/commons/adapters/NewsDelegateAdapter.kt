@@ -1,5 +1,7 @@
 package com.kevincianfarini.keddit.commons.adapters
 
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.kevincianfarini.keddit.R
@@ -20,6 +22,12 @@ class NewsDelegateAdapter : ViewTypeDelegateAdapter {
 
     class TurnsViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.news_item)) {
         fun bind(item: RedditNewsItem) = with(itemView) {
+
+            itemView.setOnClickListener {
+                val intent = CustomTabsIntent.Builder().build()
+                intent.launchUrl(context, Uri.parse(item.url))
+            }
+
             img_thumbnail.loadImg(item.thumbnail)
             description.text = item.title
             author.text = item.author
