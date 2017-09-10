@@ -35,12 +35,16 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun clearAndAddNews(news: List<RedditNewsItem>) {
-        items.clear()
-        notifyItemRangeRemoved(0, getLastPosition())
+        this.clear()
 
         items.addAll(news)
         items.add(loadingItem)
         notifyItemRangeInserted(0, items.size)
+    }
+
+    fun clear() {
+        items.clear()
+        notifyItemRangeRemoved(0, getLastPosition())
     }
 
     fun getNews(): List<RedditNewsItem> {

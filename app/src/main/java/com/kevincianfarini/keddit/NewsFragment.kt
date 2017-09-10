@@ -2,6 +2,7 @@ package com.kevincianfarini.keddit
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -24,6 +25,10 @@ class NewsFragment : RxBaseFragment() {
         news_list
     }
 
+    private val refresh: SwipeRefreshLayout by lazy {
+        swipe_refresh
+    }
+
     companion object {
         private val KEY_REDDIT_NEWS = "redditNews"
     }
@@ -44,7 +49,9 @@ class NewsFragment : RxBaseFragment() {
                             redditNews = retrievedNews
                             (newsList.adapter as NewsAdapter).addNews(retrievedNews.news)
                         },
-                        { e -> Snackbar.make(newsList, e.message ?: "", Snackbar.LENGTH_LONG).show() }
+                        { e ->
+                            Snackbar.make(newsList, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                        }
                 )
         subscriptions.add(subscription)
     }
@@ -61,6 +68,11 @@ class NewsFragment : RxBaseFragment() {
         }
 
         initAdapter()
+
+        refresh.setOnRefreshListener {
+            (newsList.adapter as NewsAdapter).clear()
+            requestNews()
+        }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_REDDIT_NEWS)) {
             redditNews = savedInstanceState.get(KEY_REDDIT_NEWS) as RedditNews
