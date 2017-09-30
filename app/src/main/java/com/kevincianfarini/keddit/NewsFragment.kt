@@ -103,6 +103,7 @@ class NewsFragment : RxBaseFragment() {
     private fun initAdapter() {
         if (newsList.adapter == null) {
             newsList.adapter = NewsAdapter()
+            refresh.isRefreshing = true
         }
     }
 }

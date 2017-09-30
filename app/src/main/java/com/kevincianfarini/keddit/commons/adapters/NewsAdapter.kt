@@ -13,25 +13,17 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
     private var items: ArrayList<ViewType>
-    private val loadingItem = object : ViewType {
-        override fun getViewType() = AdapterConstants.LOADING
-    }
 
     init {
-        delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
         delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter())
         delegateAdapters.put(AdapterConstants.TEXT_NEWS, NewsTextDelegateAdapter())
         items = ArrayList()
-        items.add(loadingItem)
     }
 
     fun addNews(news: List<RedditNewsItem>) {
-        val initPosition = items.size - 1
-        items.removeAt(initPosition)
-        notifyItemRemoved(initPosition)
+        var size = items.size
         items.addAll(news)
-        items.add(loadingItem)
-        notifyItemRangeChanged(initPosition, items.size + 1)
+        notifyItemRangeInserted(size, news.size)
     }
 
     fun clearAndAddNews(news: List<RedditNewsItem>) {
@@ -43,8 +35,6 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var size = items.size
         items.clear()
         notifyItemRangeRemoved(0, size)
-        items.add(loadingItem)
-        notifyItemInserted(0)
     }
 
     fun getNews(): List<RedditNewsItem> {
