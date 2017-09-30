@@ -36,15 +36,15 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun clearAndAddNews(news: List<RedditNewsItem>) {
         this.clear()
-
-        items.addAll(news)
-        items.add(loadingItem)
-        notifyItemRangeInserted(0, items.size)
+        this.addNews(news)
     }
 
     fun clear() {
+        var size = items.size
         items.clear()
-        notifyItemRangeRemoved(0, getLastPosition())
+        notifyItemRangeRemoved(0, size)
+        items.add(loadingItem)
+        notifyItemInserted(0)
     }
 
     fun getNews(): List<RedditNewsItem> {
@@ -52,8 +52,6 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .filter { it.getViewType() == AdapterConstants.NEWS || it.getViewType() == AdapterConstants.TEXT_NEWS }
                 .map { it as RedditNewsItem }
     }
-
-    private fun getLastPosition() = if (items.lastIndex == -1) 0 else items.lastIndex
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
             delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, items[position])
