@@ -1,9 +1,11 @@
 package com.kevincianfarini.keddit
 
 import android.support.v4.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
 import rx.subscriptions.CompositeSubscription
 
-open class RxBaseFragment() : Fragment() {
+open class RxBaseFragment : Fragment() {
 
     protected var subscriptions = CompositeSubscription()
 
@@ -18,6 +20,11 @@ open class RxBaseFragment() : Fragment() {
     override fun onResume() {
         super.onResume()
         subscriptions = CompositeSubscription()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }
